@@ -32,14 +32,22 @@ imageContainer.style.flexWrap = "wrap";
 imageContainer.style.gap = "48px 24px";
 imageContainer.style.padding = "0px";
 
-images.forEach(image => {
-	const imgElement = document.createElement('img');
+const calculatedWidth = `${(parseInt(imageContainer.style.width) - 48) / 3}px`;
 
-	imgElement.src = image.url;
-	imgElement.alt = image.alt;
-	imgElement.style.width = `${(parseInt(imageContainer.style.width) - 48) / 3}px`;
-	imgElement.style.height = '300px';
-	imgElement.style.objectFit = 'cover';
+console.log()
 
-	imageContainer.append(imgElement);
-});
+imageContainer.append(...images.map(curretImage => {
+	const li = document.createElement("li");
+	const image = document.createElement("img");
+
+	li.style.listStyleType = "none";
+	li.style.display = "inline-flex";
+	image.src = curretImage.url;
+	image.alt = curretImage.alt;
+	image.style.objectFit = "cover";
+	image.style.width = calculatedWidth
+	image.style.height = "300px"
+
+	li.append(image);
+	return li;
+}));
